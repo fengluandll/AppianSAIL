@@ -1,4 +1,4 @@
-### Simulating Switch case in Appian.
+### Simulating Switch case in SAIL.
 
 A combination of fn!choose and fn!displayvalue can be used to simulate a "switch" case in Appian. fn!choose is like switch case - but with one caveat - the "key" should be a number - it does not allow text values or float values. So, you can use fn!displayvalue with fn!choose when the value which decides which branch to takes is not a number.
 
