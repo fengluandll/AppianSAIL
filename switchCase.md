@@ -4,29 +4,31 @@ A combination of fn!choose and fn!displayvalue can be used to simulate a "switch
 
 Example Snippet:
 
-load(
+
+
+	load(
+	
+		/*local!statusCode will be 1 or 2 or -1
+		1 - Approved
+		2 - Rejected
+		-1 - Some invalid value*/
+		local!statusCode: fn!displayvalue(
+							ri!status,
+							{"Approved", "Rejected"},
+							{1,2},
+							-1
+							),
   
-  /*local!statusCode will be 1 or 2 or -1
-  1 - Approved
-  2 - Rejected
-  -1 - Some invalid value*/
-  local!statusCode: fn!displayvalue(
-    ri!status,
-    {"Approved", "Rejected"},
-    {1,2},
-    -1
-  ),
-  
-  fn!choose(
-    local!statusCode,
+		fn!choose(
+			local!statusCode,
+		
+			{
+				/*code for choice1 */
+			},
     
-    {
-      /*code for choice1 */
-    },
-    
-    {
-      /*code for choice2 */
-    }
-  )
-)
+			{
+				/*code for choice2 */
+			}
+		)
+	)
  
