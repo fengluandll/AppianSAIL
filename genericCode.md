@@ -45,41 +45,23 @@
 #### At attempt at a 'safe' queryFilter wrapper
 
 	with(
-
-	  local!pagingInfo: if(
-		ri!pagingInfo="", 
-		
-		a!pagingInfo(
-		  startIndex:1,
-		  batchSize: -1
+	  
+	  
+	  if(
+		fn!or(
+		  fn!isnull(ri!field),
+		  fn!trim(ri!field)=""
 		),
 		
-		ri!pagingInfo
-	  ),
-	  
-	  a!queryEntity(
-		entity:  ri!entityToQuery,
+		{},
 		
-		query:  a!query(
 		  
-		  selection: a!querySelection(
-			columns:  a!applyComponents(
-			  function: a!queryColumn(
-				field: _
-			  ),
-			  array: ri!arr_fieldsToQuery 
-			)  
-		  ),
-		  
-		  pagingInfo :  local!pagingInfo,
-		  
-		  logicalExpression: if(
-			ri!logicalExpression="",
-			null,
-			ri!logicalExpression
-			)
-		  
+		a!queryFilter(
+		  field: ri!field,
+		  operator: ri!operator,
+		  value: ri!value
 		)
+		
 	  )
 	  
 	)
