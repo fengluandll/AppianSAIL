@@ -32,3 +32,20 @@ Example Snippet:
 		)
 	)
  
+ 
+###########################################################################
+Another way to make a switch case:
+Only condition is that the rules should not be returning lists
+
+	fn!displayvalue(
+		ri!status,
+		{
+			"Approved", 
+			"Rejected"
+		},
+		{
+			rule!myRuleForApprovedStatus(),
+			rule!myRuleForRejectedStatus()
+		},
+		rule!myDefaultRule()
+	)
