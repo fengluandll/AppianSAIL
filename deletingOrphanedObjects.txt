@@ -1,0 +1,14 @@
+1. Find all the Objects in the application which have zero dependents on the Dev env. These are the Orphan Objects. You can check this from /suite/design and finding the dependents for the objects you suspect are no longer in use anywhere. You may even directly know what objects are not in use if it is a small team. Otherwise get input from other team members. 
+Last option is to manually check the dependents by selecting each object in /suite/design, if it does not show any dependents then it means its not in use anymore.
+2. Create new folders for each of these objects with the suffix DEPRECATED based on the type of the object - so there will be a separate folders for Rules, Constants and Process Models..(like APP_Rules_DEPRECATED)
+3. Now import your application along with these orphan objects to the Production env. Note: include those deprecated objects and their parent folders.
+4. Now on the Prod env., the application structure will be updated - you will have the deprecated rules and constants also - but they will be caged in the proper folders. Now you know where the orphaned objects are on the Prod env. in a separate folder.
+Do not delete those yet. 
+The reason being some old process instances may still be active(and may even be in use by end-users) and they might be using some constants/rules which are now orphaned in new Application version. Hence avoid deleting those constants/rules immediately.
+5. Wait for a few days - until you are sure that all the old process instances are completed/terminated. Once they are completed, you can be sure that none of the orphaned objects are in use anymore - not even in the process instances created by old versions of process models. (You should watch for all process instances which are active and started on or before the day the new application version was imported..You can take an export of the All process instances from the designer to track them..)
+6. After you confirm that all those old process instances are completed/terminated, first delete those deprecated objects from the Dev env. Then do a basic smoke test on Dev with new process instances launched. Don't bother with old instances on Dev.
+7. Again import the application on Prod. Then proceed to delete those deprecated objects on Prod. You can now be confident that nothing will break on Prod - even if you delete the depreacted objects in it.  Proceed to delete the contents inside the DEPRECATED folders. You can now delete those confidently.
+
+This way the deprecated objects are now gone and your Application will become leaner.
+This will seem like lot of trouble, but this extra caution is needed beacuse we are dealing with Prod. env.
+
